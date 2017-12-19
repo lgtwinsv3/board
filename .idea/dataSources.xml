@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="local" uuid="7151bd56-0855-474a-bf3d-b8aadbae85f0">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:$PROJECT_DIR$/src/main/java/com/ej/example/datasource\&lt;!-- https://mvnrepository.com/artifact/commons-pool/commons-pool --&gt; &lt;dependency&gt;     &lt;groupId&gt;commons-pool&lt;/groupId&gt;     &lt;artifactId&gt;commons-pool&lt;/artifactId&gt;     &lt;version&gt;1.5.4&lt;/version&gt; &lt;/dependency&gt;</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="dependency&gt; [2]" uuid="621cfab5-f008-4dff-84a2-0877f96b8709">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:$PROJECT_DIR$/src/main/java/com/ej/example/datasource\&lt;!-- https://mvnrepository.com/artifact/commons-pool/commons-pool --&gt; &lt;dependency&gt;     &lt;groupId&gt;commons-pool&lt;/groupId&gt;     &lt;artifactId&gt;commons-pool&lt;/artifactId&gt;     &lt;version&gt;1.5.4&lt;/version&gt; &lt;/dependency&gt;</jdbc-url>
+    </data-source>
+  </component>
+</project>
