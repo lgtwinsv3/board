@@ -1,12 +1,13 @@
 package com.ej.example.dao;
 
+import com.ej.example.datasource.BoardConnectionManager2;
 import com.ej.example.domain.BoardDTO;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class BoardDAO2 extends BoardConnectionManager {
+public class BoardDAO2 extends BoardConnectionManager2 {
 
 
     public List<BoardDTO> selectList(int page, int rowCount) throws SQLException {

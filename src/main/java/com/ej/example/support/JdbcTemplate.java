@@ -1,13 +1,13 @@
 package com.ej.example.support;
 
-import com.ej.example.datasource.ConnectionManager;
+import com.ej.example.datasource.ConnectionManager3;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class JdbcTemplate extends ConnectionManager {
+public abstract class JdbcTemplate extends ConnectionManager3 {
 
     private Connection conn;
     private PreparedStatement pstmt;

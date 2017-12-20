@@ -1,13 +1,13 @@
 package com.ej.example.dao;
 
-import com.ej.example.datasource.ConnectionManager;
+import com.ej.example.datasource.ConnectionManager3;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public abstract class DAO extends ConnectionManager implements DAOSupport {
+public abstract class DAO extends ConnectionManager3 implements DAOSupport {
 
     private Connection conn;
     private PreparedStatement pstmt;

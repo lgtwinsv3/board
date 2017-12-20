@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 public class BoardDAOTest {
 
-    private BoardDAO2 dao;
+    private BoardDAO3 dao;
 
     @Before
     public void setup() {
-        dao = new BoardDAO2();
+        dao = new BoardDAO3();
     }
 
     private int createData() throws SQLException {

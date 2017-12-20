@@ -5,7 +5,7 @@ import com.ej.example.domain.BoardDTO;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BoardConnectionManager2 extends ConnectionManager<BoardDTO> {
+public class BoardConnectionManager2 extends ConnectionManager2<BoardDTO> {
 
 
     protected BoardDTO createDTO(Class<BoardDTO> clz) throws SQLException {
