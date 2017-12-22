@@ -11,18 +11,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
-public class BoardServlet implements OldIAction {
+public class MemberServlet implements OldIAction {
 
-//    HttpServletRequest request;
-//    HttpServletResponse response;
+    HttpServletRequest request;
+    HttpServletResponse response;
 
-    public BoardServlet() {
+    public MemberServlet() {
     }
-
-//    BoardServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        this.request = request;
-//        this.response = response;
-//    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,15 +35,11 @@ public class BoardServlet implements OldIAction {
             String contextPath = request.getServletPath();
             String command = request.getParameter("command");
 
-
             System.out.println("uri :  " + uri);
-
-
             System.out.println("url :  " + url);
-            System.out.println("queryString :  " + request.getQueryString());
             System.out.println("contextPath : " + contextPath);
             System.out.println("command : " + command);
-            System.out.println("===========================ss=======");
+            System.out.println("==================================");
 
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=utf-8");
@@ -65,13 +56,6 @@ public class BoardServlet implements OldIAction {
     }
 
     public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        try {
-            doPost(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return null;
     }
 }

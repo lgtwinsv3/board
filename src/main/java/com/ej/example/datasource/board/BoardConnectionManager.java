@@ -1,18 +1,18 @@
-package com.ej.example.datasource;
+package com.ej.example.datasource.board;
 
+import com.ej.example.datasource.ConnectionManager;
 import com.ej.example.domain.BoardDTO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class BoardConnectionManager3 extends ConnectionManager3<BoardDTO> {
+public class BoardConnectionManager extends ConnectionManager<BoardDTO> {
 
     protected BoardDTO createDTO(Class<BoardDTO> cls) throws SQLException {
-        {
-            BoardDTO dto = null;
+
+        BoardDTO dto;
             try {
                 dto = cls.newInstance();
-
                 dto.setSeq(rs.getInt("seq"));
                 dto.setWriter(rs.getString("writer"));
                 dto.setPassword(rs.getString("password"));
@@ -27,9 +27,7 @@ public class BoardConnectionManager3 extends ConnectionManager3<BoardDTO> {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-
             return null;
-        }
     }
 
     protected List<BoardDTO> executeQuery(String query, Object... params) {

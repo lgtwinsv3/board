@@ -1,6 +1,6 @@
 package com.ej.example.support;
 
-import com.ej.example.datasource.ConnectionManager3;
+import com.ej.example.datasource.ConnectionManager;
 import com.ej.example.domain.DTO;
 
 import java.sql.Connection;
@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SelectJdbcTemplate<T extends DTO> extends ConnectionManager3 {
+public abstract class SelectJdbcTemplate<T extends DTO> extends ConnectionManager {
 
     private Connection conn;
     private PreparedStatement pstmt;

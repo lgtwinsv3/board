@@ -1,6 +1,7 @@
-package com.ej.example.command;
+package com.ej.example.action.board;
 
-import com.ej.example.dao.BoardDAO;
+import com.ej.example.action.OldIAction;
+import com.ej.example.dao.board.OldBoardDAO;
 import com.ej.example.domain.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
-public class UpdateAction implements IAction {
+public class UpdateBoardAction implements OldIAction {
 
     public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        BoardDAO boardDao = new BoardDAO();
+        OldBoardDAO boardDao = new OldBoardDAO();
 
         int seq = Integer.parseInt(request.getParameter("seq"));
         BoardDTO dto = boardDao.selectOne(seq);

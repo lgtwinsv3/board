@@ -1,13 +1,14 @@
-package com.ej.example.dao;
+package com.ej.example.dao.board;
 
-import com.ej.example.datasource.BoardConnectionManager2;
+import com.ej.example.dao.DAOSupport;
+import com.ej.example.datasource.board.BoardConnectionManager;
 import com.ej.example.domain.BoardDTO;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class BoardDAO2 extends BoardConnectionManager2 {
+public class BoardDAO extends BoardConnectionManager implements DAOSupport<BoardDTO> {
 
 
     public List<BoardDTO> selectList(int page, int rowCount) throws SQLException {
@@ -17,8 +18,8 @@ public class BoardDAO2 extends BoardConnectionManager2 {
 
     public BoardDTO selectOne(final int seq) throws SQLException {
         String query = "SELECT * FROM BOARD WHERE SEQ = ?";
-        List<BoardDTO> result = executeQuery(query, seq);
-        return result != null && result.size() > 0 ? result.get(0) : null;
+        List<BoardDTO> dtoList = executeQuery(query, seq);
+        return dtoList != null && dtoList.size() > 0 ? dtoList.get(0) : null;
     }
 
 

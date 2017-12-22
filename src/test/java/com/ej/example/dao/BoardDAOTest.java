@@ -1,5 +1,6 @@
 package com.ej.example.dao;
 
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,11 +10,11 @@ import java.sql.SQLException;
 
 public class BoardDAOTest {
 
-    private BoardDAO3 dao;
+    private BoardDAO dao;
 
     @Before
     public void setup() {
-        dao = new BoardDAO3();
+        dao = new BoardDAO();
     }
 
     private int createData() throws SQLException {

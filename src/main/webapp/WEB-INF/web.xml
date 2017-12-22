@@ -9,44 +9,45 @@
 
     <servlet>
         <servlet-name>AppServlet</servlet-name>
-        <servlet-class>com.ej.example.servlet.BoardServlet</servlet-class>
+        <servlet-class>com.ej.example.servlet.AppServlet</servlet-class>
     </servlet>
 
 
-    <servlet>
-        <servlet-name>BoardServlet</servlet-name>
-        <servlet-class>com.ej.example.servlet.BoardServlet</servlet-class>
-    </servlet>
+    <!--<servlet>-->
+    <!--<servlet-name>BoardServlet</servlet-name>-->
+    <!--<servlet-class>com.ej.example.servlet.BoardServlet</servlet-class>-->
+    <!--</servlet>-->
 
-    <servlet>
-        <servlet-name>MemberServlet</servlet-name>
-        <servlet-class>com.ej.example.servlet.BoardServlet</servlet-class>
-    </servlet>
+    <!--<servlet>-->
+    <!--<servlet-name>MemberServlet</servlet-name>-->
+    <!--<servlet-class>com.ej.example.servlet.BoardServlet</servlet-class>-->
+    <!--</servlet>-->
 
 
     <servlet-mapping>
         <servlet-name>AppServlet</servlet-name>
         <url-pattern>/app/*</url-pattern>
     </servlet-mapping>
+
     <!--<servlet-mapping>-->
     <!--<servlet-name>BoardServlet</servlet-name>-->
     <!--<url-pattern>/</url-pattern>-->
     <!--</servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>BoardServlet</servlet-name>
-        <url-pattern>/board</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>BoardServlet</servlet-name>-->
+    <!--<url-pattern>/board</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>BoardServlet</servlet-name>
-        <url-pattern>/board/</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>BoardServlet</servlet-name>-->
+    <!--<url-pattern>/board/</url-pattern>-->
+    <!--</servlet-mapping>-->
 
-    <servlet-mapping>
-        <servlet-name>MemberServlet</servlet-name>
-        <url-pattern>/member</url-pattern>
-    </servlet-mapping>
+    <!--<servlet-mapping>-->
+    <!--<servlet-name>MemberServlet</servlet-name>-->
+    <!--<url-pattern>/member</url-pattern>-->
+    <!--</servlet-mapping>-->
 
 
     <!--<servlet-mapping>-->

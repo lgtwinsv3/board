@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public abstract class ConnectionManager2<T> {
+public abstract class ConnectionManager<T> {
+
+    private static BasicDataSource dataSource;
 
     private Connection conn;
     private PreparedStatement pstmt;
     protected ResultSet rs;
 
 
-    public BasicDataSource getDataSource() {
+    private BasicDataSource getDataSource() {
         Properties properties = readProperties();
         String url = properties.getProperty("url");
         String driverClassName = properties.getProperty("driverClassName");
@@ -31,7 +33,9 @@ public abstract class ConnectionManager2<T> {
         ds.setUsername(userName);
         ds.setPassword(password);
 
-        return ds;
+        dataSource = ds;
+        return dataSource;
+
     }
 
     protected Properties readProperties() {
@@ -40,7 +44,9 @@ public abstract class ConnectionManager2<T> {
             properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties"));
         } catch (IOException e) {
             e.printStackTrace();
+
         }
+
         return properties;
     }
 
@@ -48,7 +54,8 @@ public abstract class ConnectionManager2<T> {
         return getDataSource().getConnection();
     }
 
-    protected int executeUpdate(String query, Object... params) {
+    public int executeUpdate(String query, Object... params) {
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(query);
@@ -59,50 +66,48 @@ public abstract class ConnectionManager2<T> {
 
             int affectRows = pstmt.executeUpdate();
             int seq = 0;
-            if (affectRows > 0) {
+            if (affectRows > 0) {       // update  성공
                 rs = pstmt.getGeneratedKeys();
+
                 while (rs.next()) {
                     seq = (int) rs.getLong(1);
                 }
-                if (seq == 0) {
+                if (seq == 0) { // pk 반환 x
                     return affectRows;
                 }
+
             }
+
             return seq;
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                try {
+            try {
+                if (rs != null) {
                     rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
             }
-            if (pstmt != null) {
-                try {
+            try {
+                if (pstmt != null) {
                     pstmt.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
             }
-
-            if (conn != null) {
-                try {
+            try {
+                if (conn != null) {
                     conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
             }
         }
         return 0;
     }
 
 
-    protected List executeQuery(String query, Class<T> clz, Object... params) {
+    protected List executeQuery(Class<T> cls, String query, Object... params) {
         List<T> dtoList = new ArrayList<T>();
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(query);
@@ -113,43 +118,37 @@ public abstract class ConnectionManager2<T> {
 
             if (rs != null) {
                 while (rs.next()) {
-                    dtoList.add(createDTO(clz));
+                    T dto = createDTO(cls);
+                    dtoList.add(dto);
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
-
         } finally {
-
-            if (rs != null) {
-                try {
+            try {
+                if (rs != null) {
                     rs.close();
-                } catch (SQLException e) {
-
                 }
+            } catch (Exception e) {
             }
-            if (pstmt != null) {
-                try {
+            try {
+                if (pstmt != null) {
                     pstmt.close();
-                } catch (SQLException e) {
-
                 }
+            } catch (Exception e) {
             }
-
-            if (conn != null) {
-                try {
+            try {
+                if (conn != null) {
                     conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (Exception e) {
             }
         }
         return dtoList;
     }
 
-    protected abstract T createDTO(Class<T> clz) throws SQLException;
+    protected abstract T createDTO(Class<T> cls) throws SQLException;
 
     protected abstract List<T> executeQuery(String query, Object... params);
-
-
 }

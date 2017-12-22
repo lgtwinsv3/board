@@ -1,5 +1,8 @@
 package com.ej.example.command;
 
+import com.ej.example.action.OldIAction;
+import com.ej.example.action.board.*;
+
 public class CommandFactory {
 
     public CommandFactory() {
@@ -18,29 +21,29 @@ public class CommandFactory {
         return instance;
     }
 
-    public IAction doAction(String command) {
+    public OldIAction doAction(String command) {
         if (command != null) {
 
             if (command.equalsIgnoreCase(CREATE_COMMAND)) {
-                return new CreateAction();
+                return new CreateBoardAction();
 
             } else if (command.equalsIgnoreCase(READ_COMMAND)) {
-                return new ReadAction();
+                return new ReadBoardAction();
 
             } else if (command.equalsIgnoreCase(UPDATE_COMMAND)) {
-                return new UpdateAction();
+                return new UpdateBoardAction();
 
             } else if (command.equalsIgnoreCase(UPDATE_FORM_COMMAND)) {
-                return new UpdateFormAction();
+                return new UpdateBoardFormAction();
 
             } else if (command.equalsIgnoreCase(DELETE_COMMAND)) {
-                return new DeleteAction();
+                return new DeleteBoardAction();
             }
-            return new ListAction();
+            return new ListBoardAction();
         }
 
 
-        return new ListAction();
+        return new ListBoardAction();
 
     }
 }

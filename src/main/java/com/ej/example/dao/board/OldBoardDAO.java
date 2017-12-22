@@ -1,5 +1,6 @@
-package com.ej.example.dao;
+package com.ej.example.dao.board;
 
+import com.ej.example.dao.DAOSupport;
 import com.ej.example.domain.BoardDTO;
 import com.ej.example.domain.DTO;
 import com.ej.example.support.JdbcTemplate;
@@ -12,9 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BoardDAO implements DAOSupport<BoardDTO> {
+public class OldBoardDAO implements DAOSupport<BoardDTO> {
 
-    private String query;
+    public String query;
 
     public List<BoardDTO> selectList(int page, int rowCount) throws SQLException {
 
