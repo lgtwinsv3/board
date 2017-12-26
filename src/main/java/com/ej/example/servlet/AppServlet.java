@@ -29,14 +29,9 @@ public class AppServlet extends HttpServlet {
             System.out.println("contextPath : " + contextPath);
             System.out.println("==================================");
 
-
-// 리플렉션, Class, Field, Method
-
-
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=utf-8");
 
-//            OldIAction servlet = null;
             IServlet servlet;
             if (uri.endsWith("board")) {
                 servlet = (IServlet) Class.forName("com.ej.example.servlet.BoardServlet").newInstance();
@@ -44,15 +39,16 @@ public class AppServlet extends HttpServlet {
 
             } else if (uri.endsWith("member")) {
                 servlet = (IServlet) Class.forName("com.ej.example.servlet.MemberServlet").newInstance();
-//                action.execute(request, response);
 
             } else {
                 servlet = new IServlet() {
                     public void doProc(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+                        response.sendRedirect("/index.jsp");
 
                     }
                 };
             }
+
             servlet.doProc(request, response);
 
         } catch (IllegalAccessException e) {

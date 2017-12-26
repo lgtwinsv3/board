@@ -9,8 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
-public class MemberServlet {
+public class MemberServlet implements IServlet {
 
     HttpServletRequest request;
     HttpServletResponse response;
@@ -18,14 +19,18 @@ public class MemberServlet {
     public MemberServlet() {
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IllegalAccessException, InstantiationException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IllegalAccessException, InstantiationException, SQLException {
 
         System.out.println("[POST]");
         doGet(request, response);
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InstantiationException, IllegalAccessException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InstantiationException, IllegalAccessException, SQLException {
+        doProc(request, response);
+    }
+
+    public void doProc(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         try {
             System.out.println("[GET]");
 
@@ -56,5 +61,4 @@ public class MemberServlet {
             e.printStackTrace();
         }
     }
-
 }

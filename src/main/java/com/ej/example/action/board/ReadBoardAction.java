@@ -1,22 +1,28 @@
 package com.ej.example.action.board;
 
-import com.ej.example.dao.board.OldBoardDAO;
+import com.ej.example.action.ActionForward;
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class ReadBoardAction {
 
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        OldBoardDAO boardDao = new OldBoardDAO();
-        int seq = Integer.parseInt(request.getParameter("seq"));
-        BoardDTO dto = boardDao.selectOne(seq);
-        boardDao.updateReadCount(dto);
-        request.setAttribute("board", dto);
+    public ActionForward action(HttpServletRequest request) throws SQLException {
+        ActionForward actionForward = new ActionForward();
+        BoardDAO boardDao = new BoardDAO();
 
-        return "/board/board_view.jsp";
+        BoardDTO dto = new BoardDTO();
+        if (request.getParameter("seq") != null) {
+            dto = boardDao.selectOne(Integer.parseInt(request.getParameter("seq")));
+        }
+
+        actionForward.setRedirect(false);
+        actionForward.setModel(dto);
+        actionForward.setPath("/board/board_view.jsp");
+
+        return actionForward;
     }
 
 }

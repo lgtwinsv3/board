@@ -1,33 +1,33 @@
-package com.ej.example.action.board;
+package com.ej.example.action.member;
 
 import com.ej.example.action.ActionForward;
-import com.ej.example.dao.board.BoardDAO;
-import com.ej.example.domain.BoardDTO;
+import com.ej.example.dao.member.MemberDAO;
+import com.ej.example.domain.MemberDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DeleteBoardAction {
+public class DeleteMemberAction {
 
     public ActionForward action(HttpServletRequest request) throws SQLException {
         ActionForward actionForward = new ActionForward();
-        BoardDAO boardDao = new BoardDAO();
+        MemberDAO dao = new MemberDAO();
         int seq = Integer.parseInt(request.getParameter("seq"));
-        int result = boardDao.delete(seq);
+        int result = dao.delete(seq);
         actionForward.setRedirect(false);
 
         if (result > 0) {
-            List<BoardDTO> dtoList = boardDao.selectList(1, 10);
+            List<MemberDTO> dtoList = dao.selectList(1, 10);
 
             actionForward.setModel(dtoList);
-            actionForward.setPath("/board/board_list.jsp");
+            actionForward.setPath("/member/member_list.jsp");
             return actionForward;
         }
 
-        BoardDTO dto = boardDao.selectOne(seq);
+        MemberDTO dto = dao.selectOne(seq);
         actionForward.setModel(dto);
-        actionForward.setPath("/board/board_view.jsp");
+        actionForward.setPath("/member/member_view.jsp");
 
         return actionForward;
     }

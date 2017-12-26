@@ -22,8 +22,8 @@ public class MemberDAO extends MemberConnectionManager implements DAOSupport<Mem
     }
 
     public int insert(MemberDTO dto) throws SQLException {
-        String query = "INSERT INTO test.member(  CREATE_DATE,EMAIL,LOGIN_DATE,NAME,PASSWORD,USER_ID) VALUES ( ?,?,?,?,?,?)";
-        return executeUpdate(query, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()), dto.getEmail(), dto.getLoginDate(), dto.getName(), dto.getPassword(), dto.getUserId());
+        String query = "INSERT INTO test.member(  CREATE_DATE,EMAIL,NAME,PASSWORD,USER_ID) VALUES ( ?,?,?,?,?)";
+        return executeUpdate(query, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()), dto.getEmail(), dto.getName(), dto.getPassword(), dto.getUserId());
     }
 
     public int update(MemberDTO dto) throws SQLException {

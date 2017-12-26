@@ -1,6 +1,6 @@
 package com.ej.example.dao;
 
-import com.ej.example.dao.board.OldBoardDAO;
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 import com.ej.example.domain.DTO;
 import com.ej.example.domain.MemberDTO;
@@ -54,17 +54,17 @@ public class JavaTest {
     @Test
     public void accessTest() {
         try {
-            OldBoardDAO manager2 = OldBoardDAO.class.newInstance();
-            for (Field field : OldBoardDAO.class.getDeclaredFields()) {
+            BoardDAO manager2 = BoardDAO.class.newInstance();
+            for (Field field : BoardDAO.class.getDeclaredFields()) {
                 System.out.println("field name : " + field.getName());
                 System.out.println("field type : " + field.getType());
                 System.out.println("================================");
             }
 
-            System.out.println(manager2.query);
+//            System.out.println(manager2.query);
 
-            Class c = OldBoardDAO.class;
-            OldBoardDAO d = OldBoardDAO.class.newInstance();
+            Class c = BoardDAO.class;
+            BoardDAO d = BoardDAO.class.newInstance();
 
             Class<?> anon = Class.forName("com.ej.example.domain.MemberDTO");
 

@@ -17,7 +17,10 @@
 
         }
 
-        function goPostPage() {
+        function doAction(seq, command) {
+            document.actionForm.seq.value = seq;
+            document.actionForm.command.value = command;
+            document.actionForm.submit();
 
         }
 
@@ -29,7 +32,7 @@
         <h2>회원 목록</h2>
         <div class="panel panel-default">
             <div class="panel-body">
-                <a href="/member/member_post_form.jsp"><input type="button" value=" 글쓰기" class="btn btn-primary" style="float: right"/></a>
+                <a href="javascript: doAction(0, 'post_form')"><input type="button" value=" 글쓰기" class="btn btn-primary" style="float: right"/></a>
                 <table class="table">
                     <thead>
                     <tr>
@@ -41,7 +44,7 @@
                     </thead>
                     <tbody>
                     <%
-                        List<MemberDTO> dtoList = (List<MemberDTO>) request.getAttribute("list");
+                        List<MemberDTO> dtoList = (List<MemberDTO>) request.getAttribute("model");
                         System.out.println(request.getContextPath());
                         if (dtoList.size() == 0) {
                     %>
@@ -55,7 +58,7 @@
                     <tr>
                         <th><%=dto.getSeq()%>
                         </th>
-                        <td><a href="javascript:read('<%=dto.getSeq()%>')"><%=dto.getUserId()%>
+                        <td><a href="javascript:doAction('<%=dto.getSeq()%>', 'read')"><%=dto.getUserId()%>
                         </a></td>
                         <td><%=dto.getName()%>
                         </td>
@@ -75,7 +78,7 @@
     </div>
 </div>
 
-<form name="read" method="get" action="/board">
+<form name="actionForm" method="get" action="./member">
     <input type="hidden" name="command" value="read">
     <input type="hidden" name="seq"/>
     <%--<input type="hidden" name="keyField" value="<%=keyField%>"/>--%>

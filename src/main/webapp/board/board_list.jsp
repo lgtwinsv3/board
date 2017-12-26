@@ -11,12 +11,6 @@
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
     <%--<link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--%>
     <script>
-        function read(seq) {
-            document.read.seq.value = seq;
-            document.read.submit();
-
-        }
-
         function doAction(seq, command) {
             document.actionForm.seq.value = seq;
             document.actionForm.command.value = command;
@@ -61,7 +55,7 @@
                     <tr>
                         <th><%=dto.getSeq()%>
                         </th>
-                        <td><a href="javascript:read('<%=dto.getSeq()%>')"><%=dto.getSubject()%>
+                        <td><a href="javascript:doAction('<%=dto.getSeq()%>', 'read')"><%=dto.getSubject()%>
                         </a></td>
                         <td><%=dto.getWriter()%>
                         </td>
@@ -83,7 +77,7 @@
     </div>
 </div>
 
-<form name="read" method="get" action="./board">
+<form name="actionForm" method="get" action="./board">
     <input type="hidden" name="command" value="read">
     <input type="hidden" name="seq"/>
     <%--<input type="hidden" name="keyField" value="<%=keyField%>"/>--%>

@@ -1,17 +1,17 @@
 package com.ej.example.action.board;
 
-import com.ej.example.dao.board.OldBoardDAO;
+import com.ej.example.action.ActionForward;
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 public class UpdateBoardAction {
 
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        OldBoardDAO boardDao = new OldBoardDAO();
+    public ActionForward action(HttpServletRequest request) throws SQLException {
+        ActionForward actionForward = new ActionForward();
+        BoardDAO boardDao = new BoardDAO();
 
         int seq = Integer.parseInt(request.getParameter("seq"));
         BoardDTO dto = boardDao.selectOne(seq);
@@ -22,26 +22,24 @@ public class UpdateBoardAction {
         String content = request.getParameter("content");
 
         if (!password.equals(dto.getPassword())) {
-            try {
-
-                request.setAttribute("board", dto);
-                return "/board/board_view.jsp";
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            actionForward.setRedirect(false);
+            actionForward.setModel(dto);
+            actionForward.setPath("/board/board_view.jsp");
+            return actionForward;
         }
 
-        dto.setWriter(writer.equals("") ? dto.getWriter() : writer);
-        dto.setSubject(subject.equals("") ? dto.getSubject() : subject);
+        dto.setWriter("".equals(writer) ? dto.getWriter() : writer);
+        dto.setSubject("".equals(subject) ? dto.getSubject() : subject);
         dto.setPassword(password);
-        dto.setContent(content.equals("") ? dto.getContent() : content);
+        dto.setContent("".equals(content) ? dto.getContent() : content);
 
         boardDao.update(dto);
-        request.setCharacterEncoding("UTF-8");
-        request.setAttribute("board", dto);
 
-        return "/board/board_view.jsp";
+        actionForward.setRedirect(false);
+        actionForward.setModel(dto);
+        actionForward.setPath("/board/board_view.jsp");
+
+        return actionForward;
     }
 
 }

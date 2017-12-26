@@ -6,19 +6,22 @@ import com.ej.example.domain.MemberDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
-import java.util.List;
 
-public class ListMemberAction {
+public class UpdateMemberFormAction {
 
     public ActionForward action(HttpServletRequest request) throws SQLException {
-        MemberDAO memberDAO = new MemberDAO();
-        List<MemberDTO> dtoList = memberDAO.selectList(1, 10);
-        System.out.println(dtoList.size());
-
         ActionForward actionForward = new ActionForward();
+        MemberDAO dao = new MemberDAO();
+
+        MemberDTO dto = new MemberDTO();
+        if (request.getParameter("seq") != null) {
+            dto = dao.selectOne(Integer.parseInt(request.getParameter("seq")));
+        }
         actionForward.setRedirect(false);
-        actionForward.setPath("/member/member_list.jsp");
-        actionForward.setModel(dtoList);
+        actionForward.setModel(dto);
+        actionForward.setPath("/member/member_update_form.jsp");
+
         return actionForward;
     }
+
 }

@@ -1,23 +1,29 @@
 package com.ej.example.action.board;
 
-import com.ej.example.dao.board.OldBoardDAO;
+import com.ej.example.action.ActionForward;
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
 public class UpdateBoardFormAction {
 
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        OldBoardDAO boardDao = new OldBoardDAO();
+    public ActionForward action(HttpServletRequest request) throws SQLException {
+        ActionForward actionForward = new ActionForward();
+        BoardDAO boardDao = new BoardDAO();
 
-        int seq = Integer.parseInt(request.getParameter("seq"));
-        BoardDTO dto = boardDao.selectOne(seq);
+        BoardDTO dto = new BoardDTO();
+        System.out.println("seq : " + request.getParameter("seq"));
+        if (request.getParameter("seq") != null) {
+            dto = boardDao.selectOne(Integer.parseInt(request.getParameter("seq")));
+            System.out.println("subject : " + dto.getSubject());
+        }
+        actionForward.setRedirect(false);
+        actionForward.setModel(dto);
+        actionForward.setPath("/board/board_update_form.jsp");
 
-        request.setAttribute("board", dto);
-
-        return "/board/board_update_form.jsp";
+        return actionForward;
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ListBoardAction {
 
-    public ActionForward getForwardInstance(HttpServletRequest request) throws SQLException {
+    public ActionForward action(HttpServletRequest request) throws SQLException {
         BoardDAO boardDao = new BoardDAO();
         List<BoardDTO> dtoList = boardDao.selectList(1, 10);
         System.out.println(dtoList.size());
@@ -19,7 +19,6 @@ public class ListBoardAction {
         actionForward.setRedirect(false);
         actionForward.setPath("/board/board_list.jsp");
         actionForward.setModel(dtoList);
-
         return actionForward;
     }
 }
