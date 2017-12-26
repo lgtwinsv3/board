@@ -1,23 +1,25 @@
 package com.ej.example.action.board;
 
-import com.ej.example.action.OldIAction;
-import com.ej.example.dao.board.OldBoardDAO;
+import com.ej.example.action.ActionForward;
+import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ListBoardAction implements OldIAction {
+public class ListBoardAction {
 
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException {
-        OldBoardDAO boardDao = new OldBoardDAO();
+    public ActionForward getForwardInstance(HttpServletRequest request) throws SQLException {
+        BoardDAO boardDao = new BoardDAO();
         List<BoardDTO> dtoList = boardDao.selectList(1, 10);
         System.out.println(dtoList.size());
-        request.setAttribute("list", dtoList);
-        request.setAttribute("name", "eunjeong");
 
-        return "/board/board_list.jsp";
+        ActionForward actionForward = new ActionForward();
+        actionForward.setRedirect(false);
+        actionForward.setPath("/board/board_list.jsp");
+        actionForward.setModel(dtoList);
+
+        return actionForward;
     }
 }

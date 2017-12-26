@@ -11,19 +11,17 @@ public class MemberConnectionManager extends ConnectionManager<MemberDTO> {
     protected MemberDTO createDTO(Class<MemberDTO> cls) throws SQLException {
         MemberDTO dto = null;
         try {
-            if (rs != null) {
-                dto = cls.newInstance();
 
-                while (rs.next()) {
-                    dto.setSeq(rs.getInt("SEQ"));
-                    dto.setCreateDate(rs.getDate("CREATE_DATE"));
-                    dto.setEmail(rs.getString("EMAIL"));
-                    dto.setLoginDate(rs.getDate("LOGIN_DATE"));
-                    dto.setName(rs.getString("NAME"));
-                    dto.setPassword(rs.getString("PASSWORD"));
-                    dto.setUserId(rs.getString("USER_ID"));
-                }
-            }
+            dto = cls.newInstance();
+            dto.setSeq(rs.getInt("SEQ"));
+            dto.setCreateDate(rs.getDate("CREATE_DATE"));
+            dto.setEmail(rs.getString("EMAIL"));
+            dto.setLoginDate(rs.getDate("LOGIN_DATE"));
+            dto.setName(rs.getString("NAME"));
+            dto.setPassword(rs.getString("PASSWORD"));
+            dto.setUserId(rs.getString("USER_ID"));
+
+
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

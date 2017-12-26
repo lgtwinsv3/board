@@ -5,6 +5,7 @@ import com.ej.example.datasource.member.MemberConnectionManager;
 import com.ej.example.domain.MemberDTO;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class MemberDAO extends MemberConnectionManager implements DAOSupport<MemberDTO> {
@@ -21,13 +22,13 @@ public class MemberDAO extends MemberConnectionManager implements DAOSupport<Mem
     }
 
     public int insert(MemberDTO dto) throws SQLException {
-        String query = "INSERT INTO test.member(  CREATE_DATE,EMAIL,LOGIN_DATE,NAME,PASSWORD,ROLE,USER_ID) VALUES ( ?,?,?,?,?,?)";
-        return executeUpdate(query, dto.getCreateDate(), dto.getEmail(), dto.getLoginDate(), dto.getName(), dto.getPassword(), dto.getUserId());
+        String query = "INSERT INTO test.member(  CREATE_DATE,EMAIL,LOGIN_DATE,NAME,PASSWORD,USER_ID) VALUES ( ?,?,?,?,?,?)";
+        return executeUpdate(query, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date()), dto.getEmail(), dto.getLoginDate(), dto.getName(), dto.getPassword(), dto.getUserId());
     }
 
     public int update(MemberDTO dto) throws SQLException {
-        String query = "UPDATE test.member SET ( EMAIL = ?, NAME = ?, PASSWORD = ?, USER_ID = ?)";
-        return executeUpdate(query, dto.getEmail(), dto.getName(), dto.getPassword(), dto.getUserId());
+        String query = "UPDATE test.member SET  EMAIL = ?, NAME = ?, PASSWORD = ?, USER_ID = ? WHERE SEQ = ?";
+        return executeUpdate(query, dto.getEmail(), dto.getName(), dto.getPassword(), dto.getUserId(), dto.getSeq());
     }
 
     public int delete(int seq) throws SQLException {

@@ -1,7 +1,7 @@
 package com.ej.example.dao;
 
 public abstract class DAOAdaptor {
-    protected DAO<? extends DAO> dao(Class<? extends DAO> c) {
+    protected DAO dao(Class<? extends DAO> c) {
         DAO dao = null;
         try {
             dao = c.newInstance();

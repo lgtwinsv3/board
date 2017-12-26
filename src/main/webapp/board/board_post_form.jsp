@@ -64,7 +64,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <form action="/board" method="post" id="postFrm" name="postFrm" class="form-horizontal">
+                <form action="../app/board" method="post" id="postFrm" name="postFrm" class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="subject">제목</label>
                         <div class="col-sm-8">

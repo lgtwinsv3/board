@@ -17,7 +17,7 @@
         }
 
         function goPostPage() {
-            location.href = "/board/board_post_form.jsp";
+            location.href = "board/board_post_form.jsp";
         }
 
         function doAction(seq, command) {
@@ -30,14 +30,14 @@
 </head>
 <body>
 <%
-    BoardDTO dto = (BoardDTO) request.getAttribute("board");
+    BoardDTO dto = (BoardDTO) request.getAttribute("model");
 %>
 <div class="wrapper">
     <div class="container" style="margin-top: 100px">
         <h2>게시물 조회</h2>
         <div class="panel panel-default">
             <div class="panel-body">
-                <form action="/board" method="get" id="viewFrm" name="viewFrm" class="form-horizontal">
+                <form action="./board" method="get" id="viewFrm" name="viewFrm" class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="userId">제목</label>
                         <div class="col-sm-10">
@@ -80,13 +80,13 @@
                         <div class="col-sm-2"></div>
                         <div class="col-sm-10">
                             <input type="button" value="목록" onclick="goListPage();" class="btn btn-default"/>
-                            <input type="button" value="추가" onclick="goPostPage();" class="btn btn-default"/>
+                            <input type="button" value="추가" onclick="doAction(0, 'post_form')" class="btn btn-default"/>
                             <input type="button" value="수정" onclick="doAction(<%=dto.getSeq()%>, 'update_form');" id="editBtn" class="btn btn-mini"/>
                             <input type="button" value="삭제" onclick="doAction(<%=dto.getSeq()%>, 'delete');" class="btn btn-mini btn-danger"/>
                         </div>
                     </div>
-                    <input type="hidden" name="page" value="${paging.page}">
-                    <input type="hidden" name="size" value="${paging.rowCount}">
+                    <%--<input type="hidden" name="page" value="${paging.page}">--%>
+                    <%--<input type="hidden" name="size" value="${paging.rowCount}">--%>
                     <%-- <input type="hidden" name="searchCondition" value="${paging.searchCondition}">
                      <input type="hidden" name="searchKeyword" value="${paging.searchKeyword}">
                      <input type="hidden" name="searchCategory" value="${paging.searchCategory}">
@@ -97,7 +97,7 @@
         </div>
     </div>
 </div>
-<form name="actionForm" method="get" action="/board">
+<form name="actionForm" method="get" action="./board">
     <input type="hidden" name="command">
     <input type="hidden" name="seq"/>
     <%--<input type="hidden" name="keyField" value="<%=keyField%>"/>--%>

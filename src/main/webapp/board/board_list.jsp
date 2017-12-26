@@ -17,7 +17,10 @@
 
         }
 
-        function goPostPage() {
+        function doAction(seq, command) {
+            document.actionForm.seq.value = seq;
+            document.actionForm.command.value = command;
+            document.actionForm.submit();
 
         }
 
@@ -29,7 +32,7 @@
         <h2>게시물 목록</h2>
         <div class="panel panel-default">
             <div class="panel-body">
-                <a href="/board/board_post_form.jsp"><input type="button" value=" 글쓰기" class="btn btn-primary" style="float: right"/></a>
+                <a href="javascript: doAction(0, 'post_form')"><input type="button" value=" 글쓰기" class="btn btn-primary" style="float: right"/></a>
                 <table class="table">
                     <thead>
                     <tr>
@@ -42,7 +45,7 @@
                     </thead>
                     <tbody>
                     <%
-                        List<BoardDTO> dtoList = (List<BoardDTO>) request.getAttribute("list");
+                        List<BoardDTO> dtoList = (List<BoardDTO>) request.getAttribute("model");
                         System.out.println(request.getContextPath());
                         if (dtoList.size() == 0) {
                     %>
@@ -80,7 +83,7 @@
     </div>
 </div>
 
-<form name="read" method="get" action="/board">
+<form name="read" method="get" action="./board">
     <input type="hidden" name="command" value="read">
     <input type="hidden" name="seq"/>
     <%--<input type="hidden" name="keyField" value="<%=keyField%>"/>--%>

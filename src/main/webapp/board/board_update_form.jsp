@@ -59,7 +59,7 @@
 </head>
 <body>
 <%
-    BoardDTO dto = (BoardDTO) request.getAttribute("board");
+    BoardDTO dto = (BoardDTO) request.getAttribute("model");
 %>
 <div class="wrapper">
     <div class="container" style="margin-top: 100px">
@@ -67,7 +67,7 @@
         <div class="panel panel-default">
             <div class="panel-body">
 
-                <form action="/board" method="post" id="postFrm" name="updateFrm" class="form-horizontal">
+                <form action="./board" method="post" id="postFrm" name="updateFrm" class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="subject">제목</label>
                         <div class="col-sm-8">

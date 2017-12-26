@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ListMemberAction {
+public class OldListMemberAction {
 
     @Deprecated
     public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException {
@@ -21,7 +21,7 @@ public class ListMemberAction {
         return "/member/member_list.jsp";
     }
 
-    public void execute(String command, HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
+    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
 
         MemberDAO memberDAO = new MemberDAO();
         List<MemberDTO> dtoList = memberDAO.selectList(1, 10);
@@ -31,6 +31,6 @@ public class ListMemberAction {
         ActionForward forward = new ActionForward();
         forward.setRedirect(false);
         forward.setPath("/member/member_list.jsp");
-//        return forward;
+        return forward;
     }
 }

@@ -1,17 +1,16 @@
 package com.ej.example.servlet;
 
-import com.ej.example.action.OldIAction;
-import com.ej.example.command.CommandFactory;
+import com.ej.example.action.ActionForward;
+import com.ej.example.command.ICommandFactory;
+import com.ej.example.command.MemberCommandFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
 
-public class MemberServlet implements OldIAction {
+public class MemberServlet {
 
     HttpServletRequest request;
     HttpServletResponse response;
@@ -19,14 +18,14 @@ public class MemberServlet implements OldIAction {
     public MemberServlet() {
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, IllegalAccessException, InstantiationException {
 
         System.out.println("[POST]");
         doGet(request, response);
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, InstantiationException, IllegalAccessException {
         try {
             System.out.println("[GET]");
 
@@ -39,23 +38,23 @@ public class MemberServlet implements OldIAction {
             System.out.println("url :  " + url);
             System.out.println("contextPath : " + contextPath);
             System.out.println("command : " + command);
-            System.out.println("==================================");
+            System.out.println("==========================11========");
 
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=utf-8");
 
-            CommandFactory factory = CommandFactory.getInstance();
-            OldIAction action = factory.doAction(command);
-            String nextPage = action.processCommand(request, response);
-            RequestDispatcher view = request.getRequestDispatcher(nextPage);
-            view.forward(request, response);
-
-        } catch (SQLException e) {
+            ICommandFactory commandFactory = new MemberCommandFactory();
+            ActionForward forward = commandFactory.getForwardInstance(command, request);
+            if (forward.isRedirect()) {
+                response.sendRedirect(forward.getPath());
+            } else {
+                RequestDispatcher view = request.getRequestDispatcher(forward.getPath());
+                request.setAttribute("model", forward.getModel());
+                view.forward(request, response);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        return null;
-    }
 }

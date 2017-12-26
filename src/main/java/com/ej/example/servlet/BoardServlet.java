@@ -1,17 +1,17 @@
 package com.ej.example.servlet;
 
-import com.ej.example.action.OldIAction;
-import com.ej.example.command.CommandFactory;
+import com.ej.example.action.ActionForward;
+import com.ej.example.command.BoardCommandFactory;
+import com.ej.example.command.ICommandFactory;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
-public class BoardServlet implements OldIAction {
+public class BoardServlet implements IServlet {
 
 //    HttpServletRequest request;
 //    HttpServletResponse response;
@@ -24,14 +24,19 @@ public class BoardServlet implements OldIAction {
 //        this.response = response;
 //    }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 
         System.out.println("[POST]");
-        doGet(request, response);
+        doProc(request, response);
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        doProc(request, response);
+
+    }
+
+    public void doProc(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         try {
             System.out.println("[GET]");
 
@@ -53,25 +58,21 @@ public class BoardServlet implements OldIAction {
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=utf-8");
 
-            CommandFactory factory = CommandFactory.getInstance();
-            OldIAction action = factory.doAction(command);
-            String nextPage = action.processCommand(request, response);
-            RequestDispatcher view = request.getRequestDispatcher(nextPage);
-            view.forward(request, response);
+//            IAction action = new BoardAction();
+//            action.execute(command, request, response);
 
-        } catch (SQLException e) {
+            ICommandFactory commandFactory = new BoardCommandFactory();
+            ActionForward forward = commandFactory.getForwardInstance(command, request);
+            if (forward.isRedirect()) {
+                response.sendRedirect(forward.getPath());
+            } else {
+                RequestDispatcher view = request.getRequestDispatcher(forward.getPath());
+                request.setAttribute("model", forward.getModel());
+                view.forward(request, response);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        try {
-            doPost(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

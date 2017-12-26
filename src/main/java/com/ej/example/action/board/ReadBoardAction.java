@@ -1,6 +1,5 @@
 package com.ej.example.action.board;
 
-import com.ej.example.action.OldIAction;
 import com.ej.example.dao.board.OldBoardDAO;
 import com.ej.example.domain.BoardDTO;
 
@@ -8,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
 
-public class ReadBoardAction implements OldIAction {
+public class ReadBoardAction {
 
     public String processCommand(HttpServletRequest request, HttpServletResponse response) throws SQLException {
         OldBoardDAO boardDao = new OldBoardDAO();
