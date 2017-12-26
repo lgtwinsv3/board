@@ -1,44 +1,38 @@
 package com.ej.example.command;
 
+import com.ej.example.Util.JavaUtil;
 import com.ej.example.action.ActionForward;
-import com.ej.example.action.board.*;
+import com.ej.example.action.IAction;
+import com.ej.example.action.board.ListBoardAction;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class BoardCommandFactory implements ICommandFactory {
 
-    private static final String LIST_COMMAND = "LIST";
-    private static final String CREATE_COMMAND = "POST";
-    private static final String CREATE_FORM_COMMAND = "POST_FORM";
-    private static final String READ_COMMAND = "READ";
-    private static final String UPDATE_COMMAND = "UPDATE";
-    private static final String UPDATE_FORM_COMMAND = "UPDATE_FORM";
-    private static final String DELETE_COMMAND = "DELETE";
+    public ActionForward getForwardInstance(String command, HttpServletRequest request) throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException, UnsupportedEncodingException {
 
-    public ActionForward getForwardInstance(String command, HttpServletRequest request) throws SQLException {
+        if (command != null) {
+            IAction actionCls;
+            Properties properties = JavaUtil.readProperties("board.action");
+            Set<Map.Entry<Object, Object>> entries = properties.entrySet();
 
-        if (command == null || command.equals(LIST_COMMAND)) {
-            return new ListBoardAction().action(request);
+            for (Map.Entry<Object, Object> entry : entries) {
+                if (command.equalsIgnoreCase(entry.getKey().toString())) {
 
-        } else if (command.equalsIgnoreCase(CREATE_COMMAND)) {
-            return new CreateBoardAction().action(request);
+                    System.out.println(entry.getKey() + " : " + entry.getValue());
+                    actionCls = (IAction) Class.forName(entry.getValue().toString()).newInstance();
+                    return actionCls.action(request);
+                }
+            }
 
-        } else if (command.equalsIgnoreCase(CREATE_FORM_COMMAND)) {
-            return new CreateBoardFormAction().action(request);
+        }
+        return new ListBoardAction().action(request);
 
-        } else if (command.equalsIgnoreCase(READ_COMMAND)) {
-            return new ReadBoardAction().action(request);
 
-        } else if (command.equalsIgnoreCase(UPDATE_COMMAND)) {
-            return new UpdateBoardAction().action(request);
-
-        } else if (command.equalsIgnoreCase(UPDATE_FORM_COMMAND)) {
-            return new UpdateBoardFormAction().action(request);
-
-        } else if (command.equalsIgnoreCase(DELETE_COMMAND)) {
-            return new DeleteBoardAction().action(request);
-
-        } else return new ListBoardAction().action(request);
     }
 }

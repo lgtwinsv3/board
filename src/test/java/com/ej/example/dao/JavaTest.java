@@ -1,5 +1,6 @@
 package com.ej.example.dao;
 
+import com.ej.example.Util.JavaUtil;
 import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 import com.ej.example.domain.DTO;
@@ -9,6 +10,9 @@ import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class JavaTest {
 
@@ -80,6 +84,16 @@ public class JavaTest {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void propsForLoopTest() {
+//        Properties properties = JavaUtil.readProperties("servlet.properties");
+        Properties properties = JavaUtil.readProperties("board.action");
+        Set<Map.Entry<Object, Object>> entries = properties.entrySet();
+        for (Map.Entry<Object, Object> entry : entries) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
 }

@@ -1,11 +1,16 @@
 package com.ej.example.servlet;
 
+import com.ej.example.Util.JavaUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 public class AppServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,15 +37,18 @@ public class AppServlet extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
             response.setContentType("text/html; charset=utf-8");
 
-            IServlet servlet;
-            if (uri.endsWith("board")) {
-                servlet = (IServlet) Class.forName("com.ej.example.servlet.BoardServlet").newInstance();
+            IServlet servlet = null;
+            Properties properties = JavaUtil.readProperties("servlet.properties");
+            Set<Map.Entry<Object, Object>> entries = properties.entrySet();
 
+            for (Map.Entry<Object, Object> entry : entries) {
+                if (uri.endsWith(entry.getKey().toString())) {
+                    servlet = (IServlet) Class.forName(entry.getValue().toString()).newInstance();
+                    break;
+                }
+            }
 
-            } else if (uri.endsWith("member")) {
-                servlet = (IServlet) Class.forName("com.ej.example.servlet.MemberServlet").newInstance();
-
-            } else {
+            if (servlet == null) {
                 servlet = new IServlet() {
                     public void doProc(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
                         response.sendRedirect("/index.jsp");

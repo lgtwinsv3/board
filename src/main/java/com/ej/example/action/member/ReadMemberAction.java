@@ -1,13 +1,14 @@
 package com.ej.example.action.member;
 
 import com.ej.example.action.ActionForward;
+import com.ej.example.action.IAction;
 import com.ej.example.dao.member.MemberDAO;
 import com.ej.example.domain.MemberDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
-public class ReadMemberAction {
+public class ReadMemberAction implements IAction {
 
     public ActionForward action(HttpServletRequest request) throws SQLException {
         ActionForward actionForward = new ActionForward();
