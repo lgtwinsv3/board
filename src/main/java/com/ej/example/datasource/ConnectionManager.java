@@ -78,6 +78,15 @@ public abstract class ConnectionManager<T> {
 
             }
 
+            int count = 0;
+            if (params.length == 0) {
+                rs = pstmt.executeQuery();
+                while (rs.next()) {
+                    count = rs.getInt(1);
+                }
+                return count;
+            }
+
             return seq;
         } catch (SQLException e) {
             e.printStackTrace();

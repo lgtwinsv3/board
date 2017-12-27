@@ -12,14 +12,20 @@ public class BoardDAO extends BoardConnectionManager implements DAOSupport<Board
 
 
     public List<BoardDTO> selectList(int page, int rowCount) throws SQLException {
-        String query = "SELECT * FROM BOARD ORDER BY CREATE_DATE DESC";
-        return executeQuery(query);
+//        String query = "SELECT * FROM BOARD ORDER BY CREATE_DATE DESC";
+        String query = "SELECT * FROM BOARD ORDER BY CREATE_DATE DESC LIMIT ?, ?";
+        return executeQuery(query, page, rowCount);
     }
 
     public BoardDTO selectOne(final int seq) throws SQLException {
         String query = "SELECT * FROM BOARD WHERE SEQ = ?";
         List<BoardDTO> dtoList = executeQuery(query, seq);
         return dtoList != null && dtoList.size() > 0 ? dtoList.get(0) : null;
+    }
+
+    public int selectCount() {
+        String query = "SELECT COUNT(*) FROM BOARD";
+        return executeUpdate(query);
     }
 
 

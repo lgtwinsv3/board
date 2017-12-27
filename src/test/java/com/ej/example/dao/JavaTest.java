@@ -5,11 +5,13 @@ import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 import com.ej.example.domain.DTO;
 import com.ej.example.domain.MemberDTO;
+import com.ej.example.domain.Paging;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLException;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -94,6 +96,16 @@ public class JavaTest {
         Set<Map.Entry<Object, Object>> entries = properties.entrySet();
         for (Map.Entry<Object, Object> entry : entries) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+
+    @Test
+    public void pagingTest() throws SQLException {
+        BoardDAO dao = new BoardDAO();
+        Paging<BoardDTO> paging = new Paging<BoardDTO>();
+
+        for (BoardDTO dto : dao.selectList(3, 5)) {
+            System.out.println(dto.getSeq() + ", " + dto.getCreateDate());
         }
     }
 }

@@ -30,4 +30,6 @@ public class ActionForward {
     public void setModel(Object model) {
         this.model = model;
     }
+
+//    public void setModel(Map<String, Object> ... model) { this.model = model;}
 }

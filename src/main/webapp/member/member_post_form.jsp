@@ -1,18 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/jsp/include/taglib.jsp" %>
 <html>
 <head>
     <title>등록</title>
     <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
     <link href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <script src="/webjars/summernote/0.8.8/dist/summernote.js"></script>
-    <script src="/webjars/summernote/0.8.8/dist/summernote.min.js"></script>
-    <script src="/webjars/summernote/0.8.8/dist/lang/summernote-ko-KR.js"></script>
-    <script src="/webjars/summernote/0.8.8/dist/lang/summernote-ko-KR.min.js"></script>
-    <link href="/webjars/summernote/0.8.8/dist/summernote.css" rel="stylesheet">
-
 
     <script>
         $(function () {
@@ -22,13 +15,14 @@
     <%--<link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--%>
 </head>
 <body>
+<c:set var="paging" value="${requestScope.model}"/>
 <div class="wrapper">
     <div class="container" style="margin-top: 100px">
         <h2>회원 가입</h2>
         <div class="panel panel-default">
             <div class="panel-body">
                 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-                <form action="<%=request.getContextPath()%>/app/member" method="post" id="postFrm" name="postFrm" class="form-horizontal">
+                <form action="${contextPath}/app/member" method="post" id="postFrm" name="postFrm" class="form-horizontal">
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="userId">ID </label>
                         <div class="col-sm-8">
@@ -76,12 +70,12 @@
                         </div>
                     </div>
                     <input type="hidden" name="command" value="post">
-                    <%--<input type="hidden" name="page" value="${paging.page}">
+                    <input type="hidden" name="page" value="${paging.page}">
                     <input type="hidden" name="size" value="${paging.rowCount}">
-                     <input type="hidden" name="searchCondition" value="${paging.searchCondition}">
-                     <input type="hidden" name="searchKeyword" value="${paging.searchKeyword}">
-                     <input type="hidden" name="searchCategory" value="${paging.searchCategory}">
-                     <input type="hidden" name="searchEnabled" value="${paging.searchEnabled}">--%>
+                    <%--<input type="hidden" name="searchCondition" value="${paging.searchCondition}">--%>
+                    <%--<input type="hidden" name="searchKeyword" value="${paging.searchKeyword}">--%>
+                    <%--<input type="hidden" name="searchCategory" value="${paging.searchCategory}">--%>
+                    <%--<input type="hidden" name="searchEnabled" value="${paging.searchEnabled}">--%>
                 </form>
 
             </div>

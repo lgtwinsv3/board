@@ -4,6 +4,7 @@ import com.ej.example.action.ActionForward;
 import com.ej.example.action.IAction;
 import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
+import com.ej.example.domain.Paging;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
@@ -14,14 +15,22 @@ public class UpdateBoardFormAction implements IAction {
         ActionForward actionForward = new ActionForward();
         BoardDAO boardDao = new BoardDAO();
 
+        Paging<BoardDTO> paging = new Paging<BoardDTO>();
+        if (!"".equalsIgnoreCase(request.getParameter("page"))) {
+            paging.setPage(Integer.parseInt(request.getParameter("page")));
+        }
+        if (!"".equals(request.getParameter("size"))) {
+            paging.setRowCount(Integer.parseInt(request.getParameter("size")));
+        }
+
         BoardDTO dto = new BoardDTO();
-        System.out.println("seq : " + request.getParameter("seq"));
         if (request.getParameter("seq") != null) {
             dto = boardDao.selectOne(Integer.parseInt(request.getParameter("seq")));
-            System.out.println("subject : " + dto.getSubject());
         }
+
+        paging.setBody(dto);
         actionForward.setRedirect(false);
-        actionForward.setModel(dto);
+        actionForward.setModel(paging);
         actionForward.setPath("/board/board_update_form.jsp");
 
         return actionForward;

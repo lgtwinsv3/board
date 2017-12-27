@@ -1,7 +1,5 @@
-<%@ page import="com.ej.example.domain.BoardDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/jsp/include/taglib.jsp" %>
 <html>
 <head>
     <title>등록</title>
@@ -58,9 +56,8 @@
     <%--<link href="/webjars/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">--%>
 </head>
 <body>
-<%
-    BoardDTO dto = (BoardDTO) request.getAttribute("model");
-%>
+<c:set var="paging" value="${requestScope.model}"/>
+<c:set var="vo" value="${paging.body}"/>
 <div class="wrapper">
     <div class="container" style="margin-top: 100px">
         <h2>게시물 수정</h2>
@@ -71,13 +68,13 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="subject">제목</label>
                         <div class="col-sm-8">
-                            <input type="text" id="subject" name="subject" class="form-control" placeholder="제목" value="<%=dto.getSubject()%>">
+                            <input type="text" id="subject" name="subject" class="form-control" placeholder="제목" value="${vo.subject}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="writer">작성자</label>
                         <div class="col-sm-8">
-                            <input type="text" id="writer" name="writer" class="form-control" placeholder="작성자" value="<%= dto.getWriter()%>">
+                            <input type="text" id="writer" name="writer" class="form-control" placeholder="작성자" value="${vo.writer}">
                         </div>
                     </div>
 
@@ -91,7 +88,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="summernote">내용</label>
                         <div class="col-sm-8">
-                            <textarea rows="15" id="summernote" name="content" class="form-control" placeholder="내용" value="<%= dto.getContent()%>"> </textarea>
+                            <textarea rows="15" id="summernote" name="content" class="form-control" placeholder="내용" value="value="${vo.content}"> </textarea>
                         </div>
                     </div>
 
@@ -106,13 +103,13 @@
                     </div>
 
                     <input type="hidden" name="command" value="update">
-                    <input type="hidden" name="seq" value="<%=dto.getSeq()%>">
-                    <%--<input type="hidden" name="page" value="${paging.page}">
+                    <input type="hidden" name="seq" value="${vo.seq}">
+                    <input type="hidden" name="page" value="${paging.page}">
                     <input type="hidden" name="size" value="${paging.rowCount}">
-                     <input type="hidden" name="searchCondition" value="${paging.searchCondition}">
-                     <input type="hidden" name="searchKeyword" value="${paging.searchKeyword}">
-                     <input type="hidden" name="searchCategory" value="${paging.searchCategory}">
-                     <input type="hidden" name="searchEnabled" value="${paging.searchEnabled}">--%>
+                    <%--<input type="hidden" name="searchCondition" value="${paging.searchCondition}">--%>
+                    <%--<input type="hidden" name="searchKeyword" value="${paging.searchKeyword}">--%>
+                    <%--<input type="hidden" name="searchCategory" value="${paging.searchCategory}">--%>
+                    <%--<input type="hidden" name="searchEnabled" value="${paging.searchEnabled}">--%>
                 </form>
 
             </div>

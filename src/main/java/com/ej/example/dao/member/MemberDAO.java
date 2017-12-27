@@ -11,8 +11,13 @@ import java.util.List;
 public class MemberDAO extends MemberConnectionManager implements DAOSupport<MemberDTO> {
 
     public List<MemberDTO> selectList(int page, int rowCount) throws SQLException {
-        String query = "SELECT * FROM MEMBER ORDER BY CREATE_DATE DESC";
-        return executeQuery(query);
+        String query = "SELECT * FROM MEMBER ORDER BY CREATE_DATE DESC LIMIT ?, ?";
+        return executeQuery(query, page, rowCount);
+    }
+
+    public int selectCount() throws SQLException {
+        String query = "SELECT COUNT(*) FROM MEMBER";
+        return executeUpdate(query);
     }
 
     public MemberDTO selectOne(int seq) throws SQLException {

@@ -8,6 +8,8 @@ import java.util.List;
 public interface DAOSupport<T extends DTO> {
 
     List<T> selectList(int page, int rowCount) throws SQLException;
+
+    int selectCount() throws SQLException;
     T selectOne(final int seq) throws SQLException;
     int insert(final T dto) throws SQLException;
     int update(final T dto) throws SQLException;
