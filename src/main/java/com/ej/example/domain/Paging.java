@@ -26,7 +26,7 @@ public class Paging<T> {
         this.pageCount = 10;
     }
 
-    protected Paging(int pageNo, int size) {
+    public Paging(int pageNo, int size) {
         this.body = new Object();
         this.page = pageNo;
 //        this.allCount = count;
