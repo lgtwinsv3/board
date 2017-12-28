@@ -1,4 +1,4 @@
-package com.ej.example.Util;
+package com.ej.example.util;
 
 import java.io.IOException;
 import java.util.Properties;

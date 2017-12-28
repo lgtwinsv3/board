@@ -1,11 +1,11 @@
 package com.ej.example.dao;
 
-import com.ej.example.Util.JavaUtil;
 import com.ej.example.dao.board.BoardDAO;
 import com.ej.example.domain.BoardDTO;
 import com.ej.example.domain.DTO;
 import com.ej.example.domain.MemberDTO;
 import com.ej.example.domain.Paging;
+import com.ej.example.util.JavaUtil;
 import org.junit.Assert;
 import org.junit.Test;
 

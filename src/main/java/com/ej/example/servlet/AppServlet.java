@@ -1,6 +1,6 @@
 package com.ej.example.servlet;
 
-import com.ej.example.Util.JavaUtil;
+import com.ej.example.util.JavaUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

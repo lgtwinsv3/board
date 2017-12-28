@@ -1,9 +1,9 @@
 package com.ej.example.command;
 
-import com.ej.example.Util.JavaUtil;
 import com.ej.example.action.ActionForward;
 import com.ej.example.action.IAction;
 import com.ej.example.action.board.ListBoardAction;
+import com.ej.example.util.JavaUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
